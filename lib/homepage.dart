@@ -31,7 +31,7 @@ class _HomepageState extends State<Homepage> {
         _expences = task.map((e) => Expence.fromDocument(e)).toList();
       });
     } catch (e) {
-      print('Error loading task:$e');
+      print('Error loading expence');
     }
   }
 
@@ -53,6 +53,11 @@ class _HomepageState extends State<Homepage> {
     }
   }
 
+ 
+
+
+
+
   DateTime? selectedDate;
   Future<void> _selectedDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -72,27 +77,42 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 238, 176, 197),
+      backgroundColor: const Color.fromARGB(255, 242, 240, 204),
       appBar: AppBar(
         title: Text('Expence tracker'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-            itemCount: _expences.length,
-            itemBuilder: (context, index) {
-              final expence = _expences[index];
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 100,
-                  width: 100,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white),
-                ),
-              );
-            }),
+      body: Expanded(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: ListView.builder(
+              itemCount: _expences.length,
+              itemBuilder: (context, index) {
+                final expence = _expences[index];
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 110,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(expence.Item,style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                              Text(expence.Amount,style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
+                              Text(expence.Date,style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold))
+                            ],
+                          ),
+                        ),
+                  ),
+                );
+              }),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -130,7 +150,7 @@ class _HomepageState extends State<Homepage> {
                 );
               });
         },
-        child: Text("+"),
+        child: Text("+",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
       ),
     );
   }
